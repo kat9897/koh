@@ -1,4 +1,3 @@
-import {initializeApp} from 'firebase/app';
 import { getFirestore, collection, addDoc, query, getDocs, getDoc, doc } from "firebase/firestore";
 import { ref, child, get, set } from "firebase/database";
 
@@ -16,6 +15,25 @@ const firebaseConfig = {
 // Use this to initialize the firebase App
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+
+// addHabit
+async function addHabit(userId, title, body, color_code, day, start, end, in_progress) {
+    try{
+        const habitRef = await addDoc(collection(db, "habits"), {
+           'user_Id': userId,
+           'habit_body': body,
+           'habit_title': title,
+           'color_code': color_code,
+           'day_of_week': day,
+           'start_time': start,
+           'end_time': end,
+           'in_progress': in_progress
+        });
+        console.log("Document written with ID: ", habitRef.id);
+       } catch (e) {
+        console.error("Error adding document: ", e);
+       } 
+}
 
 // getUser
 
@@ -44,7 +62,7 @@ async function getAllUsers() {
     });
 }
 
-// writeNewUser
+// addNewUser
 
 // param:
 //  email: String
@@ -53,7 +71,7 @@ async function getAllUsers() {
 //  display: String
 //  username: String
 //  password: String
-async function writeNewUser(email, phone, birthday, display, username, password) {
+async function addNewUser(email, phone, birthday, display, username, password) {
     try{
      const userRef = await addDoc(collection(db, "users"), {
         'user_email': email,
@@ -61,7 +79,8 @@ async function writeNewUser(email, phone, birthday, display, username, password)
         'user_birthday': birthday,
         'display_name': display,
         'username': username,
-        'password': password
+        'password': password,
+        'habits': []
      });
        console.log("Document written with ID: ", userRef.id);
     } catch (e) {
@@ -69,4 +88,4 @@ async function writeNewUser(email, phone, birthday, display, username, password)
      }
    }
 
-export {getUser, getAllUsers, writeNewUser};
+export {getUser, getAllUsers, addNewUser, addHabit};
