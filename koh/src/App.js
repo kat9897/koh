@@ -1,13 +1,13 @@
 import React, {useState} from 'react';
 import { getAllUsers, getUser, addNewUser, addHabit, getAllHabits, getHabit } from "./firebase"; 
 import DateRow from './components/DateRow';
+import { Webpage } from "./components/Webpage"
 
 async function teest (userID) {
   await getUser(userID).then(function(result){
     document.getElementById('resultPLES').innerHTML = result['display_name']
   }) 
 }
-import { Webpage } from "./components/Webpage"
 
 function App() {
   // getUser("0QHvKhD6XzfdrdcNssq3");
