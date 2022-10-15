@@ -1,10 +1,6 @@
 import {initializeApp} from 'firebase/app';
-import {getDatabase} from 'firebase/database';
+import { getFirestore, collection, addDoc, query, getDocs, getDoc, doc } from "firebase/firestore";
 import { ref, child, get, set } from "firebase/database";
-
-const { initializeApp, applicationDefault, cert } = require('firebase-admin/app');
-const { getFirestore, Timestamp, FieldValue } = require('firebase-admin/firestore');
-
 
 // firebase stuff n things
 const firebaseConfig = {
@@ -18,89 +14,59 @@ const firebaseConfig = {
   };
 
 // Use this to initialize the firebase App
-initializeApp();
-const db = getFirestore();
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
 // getUser
 
 // param: 
-//  userId: int
+//  userId: String
 async function getUser(userId) {
-await get(child(ref(db), `users/${userId}`)).then((snapshot) => {
-    if (snapshot.exists()) {
-    console.log(snapshot.val());
+    const userRef = doc(db, "users", userId);
+    const userSnap = await getDoc(userRef);
+
+    if (userSnap.exists()) {
+    console.log("User:", userSnap.data());
     } else {
-    console.log("No data available");
+    // doc.data() will be undefined in this case
+    console.log("No such user! IMPOSTER!");
     }
-}).catch((error) => {
-    console.error(error);
-});
 }
 
 // getAllUsers
 async function getAllUsers() {
-    await get(child(ref(db), `users`)).then((snapshot) => {
-        return snapshot.val();
-    }).catch((error) => {
-        console.error(error);
-    });
-    }
+    const q = query(collection(db, "users"));
 
-function exists(snapshot) {
-    if (snapshot.exists()) {
-        console.log(snapshot.val());
-    } else {
-        console.log("No data available");
-    }
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+    // doc.data() is never undefined for query doc snapshots
+    console.log(doc.id, " => ", doc.data());
+    });
 }
 
-// writeUserData
+// writeNewUser
 
 // param:
-//  userId: int
 //  email: String
 //  phone: int
 //  birthday: String
 //  display: String
-//  user_name: String
-//  pass_word: String
-function writeUserData(userId, email, phone, birthday, display, user_name, pass_word) {
-set(ref(db, 'users/' + userId), {
-    username: user_name,
-    password: pass_word,
-    user_email: email,
-    user_phone: phone,
-    user_birthday: birthday,
-    display_name: display,
-    user_id: userId,
-    habits: [11, 12]
-});
-}
+//  username: String
+//  password: String
+async function writeNewUser(email, phone, birthday, display, username, password) {
+    try{
+     const userRef = await addDoc(collection(db, "users"), {
+        'user_email': email,
+        'user_phone': phone,
+        'user_birthday': birthday,
+        'display_name': display,
+        'username': username,
+        'password': password
+     });
+       console.log("Document written with ID: ", userRef.id);
+    } catch (e) {
+       console.error("Error adding document: ", e);
+     }
+   }
 
-// getUser
-
-// param: 
-//  userId: int
-//  habit_id: int
-//  title: String
-//  body: String
-//  color: String
-//  day: String
-//  start: int
-//  end: int
-//  prog: String
-function addHabit(userId, habit_id, title, body, color, day, start, end, prog ) {
-set(ref(db, 'habits/' + habit_id), {
-    user_id: userId,
-    habit_id: habit_id,
-    habit_title: title,
-    habit_body: body,
-    color_code: color,
-    day_of_week: day,
-    start_time: start,
-    end_time: end,
-    imp_or_comp: prog
-});
-}
-
-export {getUser, getAllUsers, writeUserData, addHabit};
+export {getUser, getAllUsers, writeNewUser};
