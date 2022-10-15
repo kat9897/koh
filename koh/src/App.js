@@ -1,16 +1,10 @@
-import './App.css';
-import firebase from 'firebase/compat/app';
-import { db } from './index';
-import { getDatabase, ref, onValue} from "firebase/database";
-
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 //firebase stuff
-import React from "react";
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
-import { getDatabase, ref, set } from "firebase/database";
+import { getDatabase, ref, set, onValue } from "firebase/database";
 
 function writeUserData(userId, email, phone, birthday, display, user_name, pass_word) {
   const db = getDatabase();
@@ -21,7 +15,8 @@ function writeUserData(userId, email, phone, birthday, display, user_name, pass_
     user_phone: phone,
     user_birthday: birthday,
     display_name: display,
-    user_id: userId
+    user_id: userId,
+    habits: [11, 12]
   });
 }
 
@@ -45,17 +40,63 @@ function addHabit(userId, habit_id, title, body, color, day, start, end, prog ) 
 function App() {
 
   const [users, setUsers] = useState([]);
-  const usersfb = ref(db, 'users/');
+  // const usersfb = ref(db, 'users/');
 
-  onValue(usersfb, (snapshot) => {
-    const data = snapshot.val();
-    console.log(data);
-  });
+  // Get users
+  useEffect(() => {
+    const db = getDatabase();
+    const query = ref(db, "users");
+    onValue(query, (snapshot) => {
+      setUsers(snapshot.val());
+
+      return () => query.off();
+        
+    });
+  }, []);
+
+  // Get habits
+  useEffect(() => {
+    const db = getDatabase();
+    const query = ref(db, "habits");
+    onValue(query, (snapshot) => {
+      setUsers(snapshot.val());
+
+      return () => query.off();
+        
+    });
+  }, []);
+
+  // const readAllUsers = async () => {
+  //   const usersfb = ref(db, 'users/');
+  //   await onValue(usersfb, (snapshot) => {
+  //     return snapshot.val(); 
+  //   });
+  // }
+  
+  // const readUser = async (userId) => {
+  //   const usersfb = ref(db, 'users/' + userId);
+  //   await onValue(usersfb, (snapshot) => {
+  //     return snapshot.val();
+  //   });
+  // }
+
+  // readUser().then(
+  //   function(value) {console.log(value);}
+  // );
+
+  // onValue(usersfb, (snapshot) => {
+  //   const data = snapshot.val();
+  //   //console.log(data["1"]["display_name"]);
+  // });
+
+  if (!users) return <div>No users</div>;
 
   const firebaseApp = firebase.apps[0];
-  writeUserData(1, "griffin@mail.com", 1234567890, "10/12/2001", "Griffin St-Maurice", "griffin", "griffin")
-  writeUserData(2, "katerina@mail.com", 9059049526, "09/19/2001", "Katerina Best", "kat9877", "kat's password")
-  addHabit(1, 11, "Work on KOH frontend", "Develop the front end and make it presentable given the 36hrs.", "#FF3409", "Friday", 2200, 2359, "imp")
+  const test = () => {
+    writeUserData(1, "griffin@mail.com", 1234567890, "10/12/2001", "Griffin St-Maurice", "griffin", "griffin")
+    writeUserData(2, "katerina@mail.com", 9059049526, "09/19/2001", "Katerina Best", "kat9877", "kat's password")
+    addHabit(1, 11, "Work on KOH frontend", "Develop the front end and make it presentable given the 36hrs.", "#FF3409", "Friday", 2200, 2359, "imp")
+  }
   
   return (
     <div>
@@ -64,6 +105,14 @@ function App() {
       <code>
         <pre>{JSON.stringify(firebaseApp.options, null, 2)}</pre>
       </code>
+      <div>
+        {users && users.map((user, index) => (
+          <p>{user.display_name}</p>
+        ))}
+      </div>
+      <button onClick={test}>
+        test
+      </button>
     </div>
   );
 }
