@@ -2,6 +2,10 @@ import {initializeApp} from 'firebase/app';
 import {getDatabase} from 'firebase/database';
 import { ref, child, get, set } from "firebase/database";
 
+const { initializeApp, applicationDefault, cert } = require('firebase-admin/app');
+const { getFirestore, Timestamp, FieldValue } = require('firebase-admin/firestore');
+
+
 // firebase stuff n things
 const firebaseConfig = {
     apiKey: "AIzaSyCkjLgGLMPTAqQPDM0cBYCCg4yJSBoiD2E",
@@ -14,8 +18,8 @@ const firebaseConfig = {
   };
 
 // Use this to initialize the firebase App
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
+initializeApp();
+const db = getFirestore();
 
 // getUser
 
