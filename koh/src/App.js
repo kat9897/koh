@@ -1,5 +1,7 @@
-
 import './App.css';
+import firebase from 'firebase/compat/app';
+
+import React from 'react';
 
 //firebase stuff
 import React from "react";
@@ -58,6 +60,7 @@ function App() {
   return (
     <div>
       <h1>React & Firebase</h1>
+      <h2>By @farazamiruddin</h2>
       <code>
         <pre>{JSON.stringify(firebaseApp.options, null, 2)}</pre>
       </code>

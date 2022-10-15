@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+// firebase
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
@@ -19,23 +20,16 @@ const firebaseConfig = {
   measurementId: "G-V24V7DPFLX"
 };
 
+// Use this to initialize the firebase App
 const firebaseApp = firebase.initializeApp(firebaseConfig);
-const db =  firebaseApp.firestore()
-const auth = firebase.auth()
 
-export { auth, db }
+// Use these for db & auth
+const db = firebaseApp.firestore();
+const auth = firebase.auth();
 
+export { auth, db };
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <App />
 );
-
-
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
