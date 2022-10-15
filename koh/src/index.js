@@ -9,6 +9,7 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 
+// firebase stuffnthings
 const firebaseConfig = {
   apiKey: "AIzaSyCkjLgGLMPTAqQPDM0cBYCCg4yJSBoiD2E",
   authDomain: "koh-firebase-d7492.firebaseapp.com",
@@ -32,4 +33,3 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <App />
 );
-
