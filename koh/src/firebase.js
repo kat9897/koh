@@ -1,4 +1,4 @@
-import { getFirestore, collection, addDoc, query, getDocs, getDoc, doc, updateDoc } from "firebase/firestore";
+import { getFirestore, collection, addDoc, query, getDocs, getDoc, doc, updateDoc, where, QuerySnapshot } from "firebase/firestore";
 import { ref, child, get, set } from "firebase/database";
 import { initializeApp } from "firebase/app";
 
@@ -36,16 +36,15 @@ async function getHabit(habitId) {
 
 // getUserHabits
 async function getUserHabits(userId) {
-    const userRef = doc(db, "users", userId);
-    const userSnap = await getDoc(userRef);
+    const habitRef = doc(db, "habits");
+    const q = query(habitRef, where("user_id", "==", userId))
+    const querySnapshot = await getDocs(q)
 
-    if (userSnap.exists()) {
-        console.log(userSnap.get("habits"))
-        return userSnap.get("habits");
-    } else {
-    // doc.data() will be undefined in this case
-    console.log("No such user! IMPOSTER!");
+    if (querySnapshot.exists) {
+        console.log("Habits:". querySnapshot.data());
+        return querySnapshot.data();
     }
+    
 }
 
 // getAllHabits
