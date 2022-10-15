@@ -1,19 +1,12 @@
-import './App.css';
-import firebase from 'firebase/compat/app';
-
 import React from 'react';
+import Header from './Components/Header';
 
-function App() {
-  const firebaseApp = firebase.apps[0];
+const App = () => {
   return (
-    <div>
-      <h1>React & Firebase</h1>
-      <h2>By @farazamiruddin</h2>
-      <code>
-        <pre>{JSON.stringify(firebaseApp.options, null, 2)}</pre>
-      </code>
+    <div className='container'>
+      <Header title={'Habit Tracker'}/>
     </div>
-  );
+  )
 }
 
 export default App;

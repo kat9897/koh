@@ -1,0 +1,60 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  height: 200px;
+  border-bottom: solid 2px;
+}
+
+.habits-box{
+  position: relative;
+  left: 75px;
+  height: 200px;
+  display: grid;
+  grid-template-columns: 50px 50px 50px 50px 50px;
+}
+
+.habits-box .habit-title {
+  /* position: absolute;
+  bottom:  0; */
+  height: 50px;
+  width: 200px;
+  padding-left: 10px;
+  display: flex;
+  align-items: center;
+
+  background-color: white;
+  border: solid 1px;
+
+  transform-origin: 100px 100px;
+  transform: rotate(270deg); 
+}
+
+.checks {
+  display: grid;
+  grid-template-columns: 50px 50px 50px 50px 50px;
+}
+
+.day > .date, .check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 50px;
+  border: solid 1px;
+  background-color: white;
+}
+
+.highlight {
+  height: 50px;
+  border: solid 1px;
+  word-wrap: normal;
+  overflow-y: scroll;
+}
+
+.daily-log {
+  border: solid 1px;
+  word-wrap: normal;
+}
