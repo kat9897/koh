@@ -1,6 +1,11 @@
-import './App.css'
 import React, {useState, useEffect} from 'react';
+import DateRow from './components/DateRow';
+
+import { Webpage } from "./components/Webpage"
+import './App.css'
+// firebase
 import db from './firebase';
+import { getAllUsers, getUser, addNewUser, addHabit, getAllHabits, getHabit } from "./firebase"; 
 import {doc, getDoc} from 'firebase/firestore';
 
 function App() {
