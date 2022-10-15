@@ -1,9 +1,20 @@
 import './App.css';
 import firebase from 'firebase/compat/app';
+import { db } from './index';
+import { getDatabase, ref, onValue} from "firebase/database";
 
-import React from 'react';
+import React, {useState} from 'react';
 
 function App() {
+
+  const [users, setUsers] = useState([]);
+  const usersfb = ref(db, 'users/');
+
+  onValue(usersfb, (snapshot) => {
+    const data = snapshot.val();
+    console.log(data);
+  });
+
   const firebaseApp = firebase.apps[0];
   return (
     <div>
