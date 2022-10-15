@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import firebase from 'firebase/compat/app';
 
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -33,6 +34,9 @@ function App() {
 */
 
 class App extends Component {
+
+  firebaseApp = () => firebase.apps[0];
+
 
   state = {
     user: {},
@@ -91,6 +95,12 @@ class App extends Component {
                 </DisplayBoard>
             </div>
           </div>
+        </div>
+        <div>
+          <h1>React & Firebase</h1>
+          <code>
+            <pre>{JSON.stringify(firebaseApp.options, null, 2)}</pre>
+          </code>
         </div>
         <div className="row mrgnbtm">
           <Users users={this.state.users}></Users>
