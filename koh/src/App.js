@@ -1,7 +1,10 @@
 import React from "react";
+import TaskHeader from "./TaskHeader";
 
 function App() {
-  return null;
+  return (
+    <TaskHeader />
+  );
 }
 
 export default App;
