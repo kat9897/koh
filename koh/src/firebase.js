@@ -1,5 +1,6 @@
 import { getFirestore, collection, addDoc, query, getDocs, getDoc, doc } from "firebase/firestore";
 import { ref, child, get, set } from "firebase/database";
+import { initializeApp } from "firebase/app";
 
 // firebase stuff n things
 const firebaseConfig = {
@@ -32,7 +33,34 @@ async function addHabit(userId, title, body, color_code, day, start, end, in_pro
         console.log("Document written with ID: ", habitRef.id);
        } catch (e) {
         console.error("Error adding document: ", e);
-       } 
+    } 
+}
+
+// getHabit
+
+// param: 
+//  habitId: String
+async function getHabit(habitId) {
+    const habitRef = doc(db, "habits", habitId);
+    const habitSnap = await getDoc(habitRef);
+
+    if (habitSnap.exists()) {
+    console.log("Habit:", habitSnap.data());
+    } else {
+    // doc.data() will be undefined in this case
+    console.log("No such habit! IMPOSTER!");
+    }
+}
+
+// getAllHabits
+async function getAllHabits() {
+    const q = query(collection(db, "habits"));
+
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+    // doc.data() is never undefined for query doc snapshots
+    console.log(doc.id, " => ", doc.data());
+    });
 }
 
 // getUser
@@ -88,4 +116,4 @@ async function addNewUser(email, phone, birthday, display, username, password) {
      }
    }
 
-export {getUser, getAllUsers, addNewUser, addHabit};
+export {getUser, getAllUsers, addNewUser, addHabit, getHabit, getAllHabits};
