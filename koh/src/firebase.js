@@ -33,6 +33,23 @@ await get(child(ref(db), `users/${userId}`)).then((snapshot) => {
 });
 }
 
+// getAllUsers
+async function getAllUsers() {
+    await get(child(ref(db), `users`)).then((snapshot) => {
+        return snapshot.val();
+    }).catch((error) => {
+        console.error(error);
+    });
+    }
+
+function exists(snapshot) {
+    if (snapshot.exists()) {
+        console.log(snapshot.val());
+    } else {
+        console.log("No data available");
+    }
+}
+
 // writeUserData
 
 // param:
@@ -82,4 +99,4 @@ set(ref(db, 'habits/' + habit_id), {
 });
 }
 
-export {getUser, writeUserData, addHabit};
+export {getUser, getAllUsers, writeUserData, addHabit};
