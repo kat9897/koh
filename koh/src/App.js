@@ -1,6 +1,7 @@
 
 import React, {useState} from 'react';
 import { getAllUsers, getUser, addNewUser, addHabit, getAllHabits, getHabit } from "./firebase"; 
+import DateRow from './components/DateRow';
 
 async function teest (userID) {
   await getUser(userID).then(function(result){
@@ -29,6 +30,10 @@ function App() {
             </div>
             <div id='resultPLES'></div>
         </div>
+      </div>
+
+      <div className='dateDisplayShell'>
+        <DateRow date='25' checks={[true, false, true]} highlight='I learned React!' dailyLog='A description of my day.'/>
       </div>
     </div>
   );
