@@ -33,10 +33,9 @@ function App() {
 }
 */
 
+const firebaseApp = firebase.apps[0];
+
 class App extends Component {
-
-  firebaseApp = () => firebase.apps[0];
-
 
   state = {
     user: {},
