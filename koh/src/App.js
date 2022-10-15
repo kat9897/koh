@@ -1,12 +1,6 @@
-
 import React, {useState} from 'react';
 import { getAllUsers, getUser, addNewUser, addHabit, getAllHabits, getHabit } from "./firebase"; 
-
-async function teest (userID) {
-  await getUser(userID).then(function(result){
-    document.getElementById('resultPLES').innerHTML = result['display_name']
-  }) 
-}
+import { Webpage } from "./components/Webpage"
 
 function App() {
   // getUser("0QHvKhD6XzfdrdcNssq3");
@@ -20,16 +14,7 @@ function App() {
           <p>{user.display_name}</p>
         ))} */}
       </div>
-      <div>
-        <div style={{backgroundColor:'green'}}>
-            <h4 style={{color: 'white'}}>Check a User</h4>
-            <input type="text" id='userIDinput'></input>
-            <div className="btn">
-                <button type="button" onClick={(e) => teest(document.getElementById('userIDinput').value)} >Get a User</button>
-            </div>
-            <div id='resultPLES'></div>
-        </div>
-      </div>
+      <Webpage></Webpage>
     </div>
   );
 }
