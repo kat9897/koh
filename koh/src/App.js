@@ -1,6 +1,6 @@
 
 import React, {useState} from 'react';
-import { getAllUsers, getUser, addNewUser, addHabit } from "./firebase"; 
+import { getAllUsers, getUser, addNewUser, addHabit, getAllHabits, getHabit } from "./firebase"; 
 
 async function teest (userID) {
   await getUser(userID).then(function(result){
@@ -12,7 +12,7 @@ function App() {
   // getUser("0QHvKhD6XzfdrdcNssq3");
   // getAllUsers();
   // addNewUser("griffin@mail.com", 1234567890, "10/12/2001", "Griffin St-Maurice", "griffin", "griffin's password")
-
+  
   return (
     <div>
       <div>
@@ -33,8 +33,5 @@ function App() {
     </div>
   );
 }
-
-
-
 
 export default App;
