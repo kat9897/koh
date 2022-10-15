@@ -1,5 +1,6 @@
-import { getFirestore, collection, addDoc, query, getDocs, getDoc, doc } from "firebase/firestore";
+import { getFirestore, collection, addDoc, query, getDocs, getDoc, doc} from "firebase/firestore";
 import { ref, child, get, set } from "firebase/database";
+import {initializeApp} from "firebase/app";
 
 // firebase stuff n things
 const firebaseConfig = {
@@ -44,7 +45,8 @@ async function getUser(userId) {
     const userSnap = await getDoc(userRef);
 
     if (userSnap.exists()) {
-    console.log("User:", userSnap.data());
+    //console.log("User:", userSnap.data());
+    return userSnap.data();
     } else {
     // doc.data() will be undefined in this case
     console.log("No such user! IMPOSTER!");

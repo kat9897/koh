@@ -2,10 +2,17 @@
 import React, {useState} from 'react';
 import { getAllUsers, getUser, addNewUser, addHabit } from "./firebase"; 
 
+async function teest (userID) {
+  await getUser(userID).then(function(result){
+    document.getElementById('resultPLES').innerHTML = result['display_name']
+  }) 
+}
+
 function App() {
   // getUser("0QHvKhD6XzfdrdcNssq3");
   // getAllUsers();
   // addNewUser("griffin@mail.com", 1234567890, "10/12/2001", "Griffin St-Maurice", "griffin", "griffin's password")
+
   return (
     <div>
       <div>
@@ -13,9 +20,16 @@ function App() {
           <p>{user.display_name}</p>
         ))} */}
       </div>
-      {/* <button onClick={test}>
-        test
-      </button> */}
+      <div>
+        <div style={{backgroundColor:'green'}}>
+            <h4 style={{color: 'white'}}>Check a User</h4>
+            <input type="text" id='userIDinput'></input>
+            <div className="btn">
+                <button type="button" onClick={(e) => teest(document.getElementById('userIDinput').value)} >Get a User</button>
+            </div>
+            <div id='resultPLES'></div>
+        </div>
+      </div>
     </div>
   );
 }
