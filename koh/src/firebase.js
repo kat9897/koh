@@ -1,10 +1,7 @@
-import {initializeApp} from 'firebase/app';
-import {getDatabase} from 'firebase/database';
-import { ref, child, get, set } from "firebase/database";
 
-const { initializeApp, applicationDefault, cert } = require('firebase-admin/app');
-const { getFirestore, Timestamp, FieldValue } = require('firebase-admin/firestore');
-
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+import { collection, addDoc } from "firebase/firestore"; 
 
 // firebase stuff n things
 const firebaseConfig = {
@@ -18,89 +15,45 @@ const firebaseConfig = {
   };
 
 // Use this to initialize the firebase App
-initializeApp();
-const db = getFirestore();
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
-// getUser
 
-// param: 
-//  userId: int
-async function getUser(userId) {
-await get(child(ref(db), `users/${userId}`)).then((snapshot) => {
-    if (snapshot.exists()) {
-    console.log(snapshot.val());
-    } else {
-    console.log("No data available");
-    }
-}).catch((error) => {
-    console.error(error);
-});
+async function writeNewUser(email, phone, birthday, display, username, password) {
+    try{
+     const userRef = await addDoc(collection(db, "users"), {
+        'user_email': email,
+        'user_phone': phone,
+        'user_birthday': birthday,
+        'display_name': display,
+        'username': username,
+        'password': password,
+        'habits': []
+     });
+     console.log("Document written with ID: ", userRef.id);
+    } catch (e) {
+     console.error("Error adding document: ", e);
+    } 
 }
 
-// getAllUsers
-async function getAllUsers() {
-    await get(child(ref(db), `users`)).then((snapshot) => {
-        return snapshot.val();
-    }).catch((error) => {
-        console.error(error);
-    });
-    }
-
-function exists(snapshot) {
-    if (snapshot.exists()) {
-        console.log(snapshot.val());
-    } else {
-        console.log("No data available");
-    }
+async function addHabit(userId, title, body, color_code, day, start, end, in_progress) {
+    try{
+        const habitRef = await addDoc(collection(db, "habits"), {
+           'user_Id': userId,
+           'habit_body': body,
+           'habit_title': title,
+           'color_code': color_code,
+           'day_of_week': day,
+           'start_time': start,
+           'end_time': end,
+           'in_progress': in_progress
+        });
+        console.log("Document written with ID: ", habitRef.id);
+       } catch (e) {
+        console.error("Error adding document: ", e);
+       } 
 }
 
-// writeUserData
 
-// param:
-//  userId: int
-//  email: String
-//  phone: int
-//  birthday: String
-//  display: String
-//  user_name: String
-//  pass_word: String
-function writeUserData(userId, email, phone, birthday, display, user_name, pass_word) {
-set(ref(db, 'users/' + userId), {
-    username: user_name,
-    password: pass_word,
-    user_email: email,
-    user_phone: phone,
-    user_birthday: birthday,
-    display_name: display,
-    user_id: userId,
-    habits: [11, 12]
-});
-}
 
-// getUser
-
-// param: 
-//  userId: int
-//  habit_id: int
-//  title: String
-//  body: String
-//  color: String
-//  day: String
-//  start: int
-//  end: int
-//  prog: String
-function addHabit(userId, habit_id, title, body, color, day, start, end, prog ) {
-set(ref(db, 'habits/' + habit_id), {
-    user_id: userId,
-    habit_id: habit_id,
-    habit_title: title,
-    habit_body: body,
-    color_code: color,
-    day_of_week: day,
-    start_time: start,
-    end_time: end,
-    imp_or_comp: prog
-});
-}
-
-export {getUser, getAllUsers, writeUserData, addHabit};
+export { writeNewUser, addHabit };
