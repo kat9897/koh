@@ -1,5 +1,7 @@
-import { getFirestore, collection, addDoc, query, getDocs, getDoc, doc } from "firebase/firestore";
+import { getFirestore, collection, addDoc, query, getDocs, getDoc, doc, updateDoc } from "firebase/firestore";
 import { ref, child, get, set } from "firebase/database";
+import { initializeApp } from "firebase/app";
+
 
 // firebase stuff n things
 const firebaseConfig = {
@@ -15,9 +17,50 @@ const firebaseConfig = {
 // Use this to initialize the firebase App
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+// getHabit
 
+// param: 
+//  habitId: String
+async function getHabit(habitId) {
+    const habitRef = doc(db, "habits", habitId);
+    const habitSnap = await getDoc(habitRef);
+
+    if (habitSnap.exists()) {
+    console.log("Habit:", habitSnap.data());
+    return habitSnap.data
+    } else {
+    // doc.data() will be undefined in this case
+    console.log("No such habit! IMPOSTER!");
+    }
+}
+
+// getUserHabits
+async function getUserHabits(userId) {
+    const userRef = doc(db, "users", userId);
+    const userSnap = await getDoc(userRef);
+
+    if (userSnap.exists()) {
+        console.log(userSnap.get("habits"))
+        return userSnap.get("habits");
+    } else {
+    // doc.data() will be undefined in this case
+    console.log("No such user! IMPOSTER!");
+    }
+}
+
+// getAllHabits
+async function getAllHabits() {
+    const q = query(collection(db, "habits"));
+
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+    // doc.data() is never undefined for query doc snapshots
+    console.log(doc.id, " => ", doc.data());
+    });
+}
 // addHabit
 async function addHabit(userId, title, body, color_code, day, start, end, in_progress) {
+    //creating habit
     try{
         const habitRef = await addDoc(collection(db, "habits"), {
            'user_Id': userId,
@@ -29,10 +72,12 @@ async function addHabit(userId, title, body, color_code, day, start, end, in_pro
            'end_time': end,
            'in_progress': in_progress
         });
-        console.log("Document written with ID: ", habitRef.id);
-       } catch (e) {
-        console.error("Error adding document: ", e);
-       } 
+        
+    } catch (e) {
+        console.error("Error adding/updating document: ", e);
+    } 
+    
+
 }
 
 // getUser
@@ -79,8 +124,7 @@ async function addNewUser(email, phone, birthday, display, username, password) {
         'user_birthday': birthday,
         'display_name': display,
         'username': username,
-        'password': password,
-        'habits': []
+        'password': password
      });
        console.log("Document written with ID: ", userRef.id);
     } catch (e) {
@@ -88,4 +132,4 @@ async function addNewUser(email, phone, birthday, display, username, password) {
      }
    }
 
-export {getUser, getAllUsers, addNewUser, addHabit};
+export {getUser, getAllUsers, addNewUser, addHabit,  getAllHabits, getUserHabits, getHabit};
