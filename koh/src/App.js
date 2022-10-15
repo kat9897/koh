@@ -1,12 +1,11 @@
 
 import React, {useState} from 'react';
-import  { writeNewUser, addHabit } from './firebase'
-
-
-
+import { getAllUsers, getUser, addNewUser, addHabit } from "./firebase"; 
 
 function App() {
-  addHabit("0QHvKhD6XzfdrdcNssq3","Finish KOH Hackathon Project", "Get the project to a presentable state. Finish backend functions and frontend entry/buttons", "#FF3409", 5, 2200, 2359, true)
+  // getUser("0QHvKhD6XzfdrdcNssq3");
+  // getAllUsers();
+  // addNewUser("griffin@mail.com", 1234567890, "10/12/2001", "Griffin St-Maurice", "griffin", "griffin's password")
   return (
     <div>
       <div>

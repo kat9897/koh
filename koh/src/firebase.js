@@ -1,7 +1,5 @@
-
-import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
-import { collection, addDoc } from "firebase/firestore"; 
+import { getFirestore, collection, addDoc, query, getDocs, getDoc, doc } from "firebase/firestore";
+import { ref, child, get, set } from "firebase/database";
 
 // firebase stuff n things
 const firebaseConfig = {
@@ -18,24 +16,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-
-async function writeNewUser(email, phone, birthday, display, username, password) {
-    try{
-     const userRef = await addDoc(collection(db, "users"), {
-        'user_email': email,
-        'user_phone': phone,
-        'user_birthday': birthday,
-        'display_name': display,
-        'username': username,
-        'password': password,
-        'habits': []
-     });
-     console.log("Document written with ID: ", userRef.id);
-    } catch (e) {
-     console.error("Error adding document: ", e);
-    } 
-}
-
+// addHabit
 async function addHabit(userId, title, body, color_code, day, start, end, in_progress) {
     try{
         const habitRef = await addDoc(collection(db, "habits"), {
@@ -54,6 +35,57 @@ async function addHabit(userId, title, body, color_code, day, start, end, in_pro
        } 
 }
 
+// getUser
 
+// param: 
+//  userId: String
+async function getUser(userId) {
+    const userRef = doc(db, "users", userId);
+    const userSnap = await getDoc(userRef);
 
-export { writeNewUser, addHabit };
+    if (userSnap.exists()) {
+    console.log("User:", userSnap.data());
+    } else {
+    // doc.data() will be undefined in this case
+    console.log("No such user! IMPOSTER!");
+    }
+}
+
+// getAllUsers
+async function getAllUsers() {
+    const q = query(collection(db, "users"));
+
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+    // doc.data() is never undefined for query doc snapshots
+    console.log(doc.id, " => ", doc.data());
+    });
+}
+
+// addNewUser
+
+// param:
+//  email: String
+//  phone: int
+//  birthday: String
+//  display: String
+//  username: String
+//  password: String
+async function addNewUser(email, phone, birthday, display, username, password) {
+    try{
+     const userRef = await addDoc(collection(db, "users"), {
+        'user_email': email,
+        'user_phone': phone,
+        'user_birthday': birthday,
+        'display_name': display,
+        'username': username,
+        'password': password,
+        'habits': []
+     });
+       console.log("Document written with ID: ", userRef.id);
+    } catch (e) {
+       console.error("Error adding document: ", e);
+     }
+   }
+
+export {getUser, getAllUsers, addNewUser, addHabit};
