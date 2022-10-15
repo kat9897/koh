@@ -9,11 +9,6 @@ function App() {
   
   return (
     <div>
-      <div>
-        {/* {users && users.map((user, index) => (
-          <p>{user.display_name}</p>
-        ))} */}
-      </div>
       <Webpage></Webpage>
     </div>
   );
