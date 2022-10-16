@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/kat9897.github.io/koh/static/css/main.fb0c39a4.css",
-    "main.js": "/kat9897.github.io/koh/static/js/main.7e692883.js",
-    "index.html": "/kat9897.github.io/koh/index.html",
-    "main.fb0c39a4.css.map": "/kat9897.github.io/koh/static/css/main.fb0c39a4.css.map",
-    "main.7e692883.js.map": "/kat9897.github.io/koh/static/js/main.7e692883.js.map"
+    "main.css": "/koh/static/css/main.fb0c39a4.css",
+    "main.js": "/koh/static/js/main.ad0fa280.js",
+    "index.html": "/koh/index.html",
+    "main.fb0c39a4.css.map": "/koh/static/css/main.fb0c39a4.css.map",
+    "main.ad0fa280.js.map": "/koh/static/js/main.ad0fa280.js.map"
   },
   "entrypoints": [
     "static/css/main.fb0c39a4.css",
-    "static/js/main.7e692883.js"
+    "static/js/main.ad0fa280.js"
   ]
 }
