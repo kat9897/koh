@@ -10,7 +10,7 @@ const Webpage = () => {
         <div className='appContainer'>
             <HabitDisplayShell/>
             <DateDisplayShell/>
-            {/*<Header></Header>*/}
+            <Header></Header>
         </div>
     );
 }
