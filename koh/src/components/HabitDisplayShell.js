@@ -2,7 +2,7 @@ import React from 'react'
 //import { HabitDisplay } from './HabitDisplay'
 
 const HabitDisplayShell = () => {
-    let habitNames = ["Go outside", "talk to 1 person", "10 push ups"];
+    let habitNames = ["CSCC73", "CSCC73", "CSCC85", "CSCD58" , "Go outside", "Talk to 1 person", "10 pushups", "Clean room", "Play guitar", "Read book"];
     //let habitDescriptions = [];
     
     return (

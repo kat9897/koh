@@ -10,7 +10,7 @@ export const Webpage = () => {
         <div>
             <HabitDisplayShell/>
             <DateDisplayShell/>
-            <Header></Header>
+            {/*<Header></Header>*/}
         </div>
     );
 }
