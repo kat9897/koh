@@ -1,7 +1,107 @@
 body {
   background-color: powderblue;
-  padding: 20px;
+  margin: 0;
+  padding: 0;
+
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 18pt;
 }
+
+.appContainer {
+  margin: 0 auto 0 auto;
+}
+
 h4 {
   color: white;
 }
+
+h1, label, table {
+  padding: 15px;
+}
+
+/***********************
+ *     Habits Shell    *
+ ***********************/
+
+.habitDisplayShell{
+  position: relative;
+  /*left: 75px;*/
+  height: 200px;
+  display: grid;
+  grid-template-columns: 75px 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px;
+}
+  
+.habitName {
+  /* position: absolute;
+  bottom:  0; */
+  height: 50px;
+  width: 189px;
+  padding-left: 10px;
+  display: flex;
+  align-items: center;
+  
+  background-color: white;
+  border: solid 1px;
+  
+  transform-origin: 100px 100px;
+  transform: rotate(270deg);
+}
+ 
+.addHabitContainer {
+  display: flex;
+  align-items: center;
+}
+
+.addHabit {
+  height: 200px;
+  width: 50px;
+  font-size: 30pt;
+  text-align: center;
+}
+
+/***********************
+ *       Day Row       *
+ ***********************/
+
+.dayStrip {
+  display: flex;
+}
+
+.date {
+  width: 75px;
+  height: 50px;
+  margin: 0;
+  font-size: 18pt;
+  text-align: center;
+}
+
+.checkmark, .todayCheckmark {
+  width: 50px;
+  height: 50px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.highlight {
+  width: auto;
+  height: 50px;
+  display: flex;
+  align-items: center;
+}
+
+.dailyLog {
+  height: 150px;
+  overflow-y: scroll;
+}
+
+/***********************
+ *    Miscellaneous    *
+ ***********************/
+
+button {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 18pt;
+}
+

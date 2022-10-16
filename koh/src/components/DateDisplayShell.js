@@ -36,7 +36,7 @@ const habitConverter = {
   }
 };
 
-export const DateDisplayShell = () => {  
+const DateDisplayShell = ({ date }) => {  
     const [habitsData, setHabitsData] = useState([]);
 
     // Read from Habits
@@ -54,9 +54,18 @@ export const DateDisplayShell = () => {
         });
         console.log(habitsData);
     }, []);
+    
     return (
         <>
-            <DateRow date="1" checks={[true, true, false, true, false]} highlight="Highlight" dailyLog="Description of my day"/>
+            <DateRow date={16} checks={[true, true, false, true, false, false, true]} highlight="Highlight" dailyLog="Description of my day"/>
+            <DateRow date={15} checks={[true, true, false, true, false, false, true]} highlight="Highlight" dailyLog="Description of my day"/>
+            <DateRow date={14} checks={[true, true, false, true, false, false, true]} highlight="Highlight" dailyLog="Description of my day"/>
+            <DateRow date={13} checks={[true, true, false, true, false, false, true]} highlight="Highlight" dailyLog="Description of my day"/>
+            <DateRow date={12} checks={[true, true, false, true, false, false, true]} highlight="Highlight" dailyLog="Description of my day"/>
+            <DateRow date={11} checks={[true, true, false, true, false, false, true]} highlight="Highlight" dailyLog="Description of my day"/>
+            <DateRow date={10} checks={[true, true, false, true, false, false, true]} highlight="Highlight" dailyLog="Description of my day"/>
         </>
     )
 }
+
+export default DateDisplayShell;
