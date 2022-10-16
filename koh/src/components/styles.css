@@ -36,3 +36,29 @@ h4 {
   height: 150px;
   overflow-y: scroll;
 }
+
+
+
+/***********************
+ *     Habits Shell    *
+ ***********************/
+
+.habitDisplayShell {
+  display: grid;
+  grid-template-columns: 75px 50px 50px 50px;
+  position: relative;
+}
+
+.habitName {
+  height: 50px;
+  width: 180px;
+  padding-left: 10px;
+  display: flex;
+  align-items: center;
+  
+  background-color: white;
+  border: solid 1px;
+  
+  /* transform-origin: 100px 100px;
+  transform: rotate(270deg); */
+}

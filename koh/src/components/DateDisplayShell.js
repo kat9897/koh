@@ -1,7 +1,7 @@
 import React, {Text} from 'react'
 import DateRow from './DateRow'
 
-export const DateDisplayShell = ({ date }) => {
+const DateDisplayShell = ({ date }) => {
     {/* TODO call backend api */}
     return (
         <>
@@ -15,3 +15,5 @@ export const DateDisplayShell = ({ date }) => {
         </>
     )
 }
+
+export default DateDisplayShell;
