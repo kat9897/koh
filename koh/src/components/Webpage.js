@@ -4,7 +4,7 @@ import { Header } from './Header'
 import HabitDisplayShell  from './HabitDisplayShell'
 import DateDisplayShell  from './DateDisplayShell'
 
-export const Webpage = () => {
+const Webpage = () => {
     const currDate = new Date().getDate();
     return (
         <div className='appContainer'>
@@ -14,3 +14,5 @@ export const Webpage = () => {
         </div>
     );
 }
+
+export default Webpage;
