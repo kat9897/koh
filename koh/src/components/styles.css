@@ -5,3 +5,27 @@ body {
 h4 {
   color: white;
 }
+
+.dayStrip {
+  display: flex;
+}
+
+.date {
+  width: 75px;
+  height: 50px;
+  text-align: center;
+}
+
+.checkmark {
+  height: 50px;
+}
+
+.highlight {
+  width: auto;
+  height: 50px;
+}
+
+.dailyLog {
+  height: 150px;
+  overflow-y: scroll;
+}

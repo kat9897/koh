@@ -10,27 +10,7 @@ export const Webpage = () => {
         <div>
             <HabitDisplayShell/>
             {/* 7 days */}
-            <DateDisplayShell
-                date={currDate}
-            />
-            <DateDisplayShell
-                date={currDate+1}
-            />
-            <DateDisplayShell
-                date={currDate+2}
-            />
-            <DateDisplayShell
-                date={currDate+3}
-            />
-            <DateDisplayShell
-                date={currDate+4}
-            />
-            <DateDisplayShell
-                date={currDate+5}
-            />
-            <DateDisplayShell
-                date={currDate+6}
-            />
+            <DateDisplayShell/>
             <Header></Header>
         </div>
     );

@@ -12,15 +12,11 @@ const DateRow = ({ date, checks, highlight, dailyLog }) => {
         <div className='day'>
             <div className='dayStrip'>
                 <div className='date'>{date}</div>
-                <div className='checkmarks'>
-                    <div className='checkmark'>
-                        { checkmarks.map((checkmark) => ( <div>{checkmark}</div> )) }
-                    </div>
-                </div>
+                { checkmarks.map((checkmark) => ( <div className='checkmark' style={{width: '50px'}}>{checkmark}</div> )) }
                 <div className='highlight'>{highlight}</div>
             </div>
             <div className='dailyLog'>
-                <div>{dailyLog}</div>
+                {dailyLog}
             </div>
         </div>
     )
