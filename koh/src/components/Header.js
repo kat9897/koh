@@ -123,7 +123,7 @@ export const Header = () => {
     };
 
     return (
-        <div style={{backgroundColor:'DarkSeaGreen'}}>
+        <div style={{backgroundColor:'PapayaWhip'}}>
             <div id='resultField'></div>
             {!dataIdToBeUpdated ? (
                 <div className='App__form'>
