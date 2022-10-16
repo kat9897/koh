@@ -3,17 +3,24 @@ import PropTypes from 'prop-types'
 
 const DateRow = ({ date, checks, highlight, dailyLog }) => {
     
-    // let check = ' ';
-    // if(checks[0] === true) check = '✓';
+    const collapse = () => {
+        alert("I was clicked!");
+    }
 
     const checkmarks = checks.map(check => ( check ? '✓' : ' ' ));
 
     return (
         <div className='day'>
             <div className='dayStrip'>
-                <div className='date'>{date}</div>
-                { checkmarks.map((checkmark) => ( <div className='checkmark' style={{width: '50px'}}>{checkmark}</div> )) }
-                <div className='highlight'>{highlight}</div>
+                <button className='date' onClick={collapse}>{date}</button>
+                { checkmarks.map((checkmark) => ( 
+                    <div className='checkmark'>
+                        <span> {checkmark} </span>
+                    </div> )) 
+                }
+                <div className='highlight'>
+                    <span> {highlight} </span>
+                </div>
             </div>
             <div className='dailyLog'>
                 {dailyLog}
