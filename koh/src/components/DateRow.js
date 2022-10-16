@@ -3,8 +3,9 @@ import PropTypes from 'prop-types'
 
 const DateRow = ({ date, checks=[false,false,false,false,false,false], highlight, dailyLog }) => {
 
-    const clicked = () => {
-        alert("Today's checkbox is clicked!");
+    const handleClick = (e) => {
+        let habitIndex = Math.floor( (e.pageX - 75)/50 );
+        console.log(habitIndex);
     }
 
     const [isOpen, toggleOpen] = useState(false);
@@ -17,7 +18,7 @@ const DateRow = ({ date, checks=[false,false,false,false,false,false], highlight
                 <button className='date' onClick={() => toggleOpen(!isOpen)}>{date}</button>
                 { checkmarks.map(checkmark => ( 
                     ((todayDate === date) 
-                      && <button className='todayCheckmark' onClick={clicked}>{checkmark}</button>
+                      && <button className='todayCheckmark' onClick={(e) => handleClick(e)}> {checkmark} </button>
                     ) || <div className='checkmark'>{checkmark}</div>
                 ) ) }
                 <div className='highlight'>
