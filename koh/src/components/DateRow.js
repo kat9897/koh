@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import PropTypes from 'prop-types'
 
-const DateRow = ({ date, checks, highlight, dailyLog }) => {
+const DateRow = ({ date, checks=[false,false,false,false,false,false], highlight, dailyLog }) => {
 
     const clicked = () => {
         alert("Today's checkbox is clicked!");

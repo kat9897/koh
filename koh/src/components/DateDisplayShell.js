@@ -86,18 +86,16 @@ const DateDisplayShell = ({ date }) => {
     
     return (
         <>
-            {/* {daysData.map((day) => {
-              console.log("habits completed: ", habitCompleteDays); 
-              
-              <DateRow key={day.date} date={day.date} checks={habitCompleteDays[0]} highlight={day.highlight} dailyLog={day.daily_log}/>     
-            })} */}
-            <DateRow date={16} checks={[true, true, false, true, false, false, true]} highlight="Highlight" dailyLog="Description of my day"/>            
+            {daysData.map((day) => (
+              <DateRow date={day.date} checks={[true, true, false, true, false, false, true]} highlight={day.highlight} dailyLog={day.daily_log}/>
+            ))}
+            {/* <DateRow date={16} checks={[true, true, false, true, false, false, true]} highlight="Highlight" dailyLog="Description of my day"/>            
             <DateRow date={15} checks={[true, true, false, true, false, false, true]} highlight="Highlight" dailyLog="Description of my day"/>
             <DateRow date={14} checks={[true, true, false, true, false, false, true]} highlight="Highlight" dailyLog="Description of my day"/>
             <DateRow date={13} checks={[true, true, false, true, false, false, true]} highlight="Highlight" dailyLog="Description of my day"/>
             <DateRow date={12} checks={[true, true, false, true, false, false, true]} highlight="Highlight" dailyLog="Description of my day"/>
             <DateRow date={11} checks={[true, true, false, true, false, false, true]} highlight="Highlight" dailyLog="Description of my day"/>
-            <DateRow date={10} checks={[true, true, false, true, false, false, true]} highlight="Highlight" dailyLog="Description of my day"/>
+            <DateRow date={10} checks={[true, true, false, true, false, false, true]} highlight="Highlight" dailyLog="Description of my day"/> */}
         </>
     )
 }
