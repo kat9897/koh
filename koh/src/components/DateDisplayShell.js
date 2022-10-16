@@ -1,63 +1,97 @@
 import React, {Text, useEffect, useState} from 'react'
 import DateRow from './DateRow'
 import db from '../firebase';
-
-class Habit {
-  constructor (habit_id, habit_title, habit_body, color_code, start_time, end_time, is_complete) {
-      this.habit_id = habit_id;
-      this.habit_title = habit_title;
-      this.habit_body = habit_body;
-      this.color_code = color_code;
-      this.start_time = start_time;
-      this.end_time = end_time;
-      this.is_complete = is_complete;
-  }
-  toString() {
-      return this.habit_title;
-  }
-}
-
-// Firestore data converter
-const habitConverter = {
-  toFirestore: (habit) => {
-      return {
-          habit_id: habit.habit_id,
-          habit_title: habit.habit_title,
-          habit_body: habit.habit_body,
-          color_code: habit.color_code,
-          start_time: habit.start_time,
-          end_time: habit.end_time,
-          is_complete: habit.is_complete
-          };
-  },
-  fromFirestore: (snapshot, options) => {
-      const data = snapshot.data(options);
-      return new Habit(data.id, data.habit_title, data.habit_body, data.color_code, data.start_time, data.end_time, data.is_complete);
-  }
-};
+import { onSnapshot, query, collection, getDocs } from 'firebase/firestore';
 
 const DateDisplayShell = ({ date }) => {  
-    const [habitsData, setHabitsData] = useState([]);
+    const [habitsCompleted, setHabitsCompleted] = useState([]);
+    const [habitCompleteDays, setHabitCompleteDays] = useState([]);
+    const [daysData, setDaysData] = useState([]);
+    let [count, setCount] = useState(0);
 
-    // Read from Habits
-    useEffect(async () => {
-        await db.collection("habits").onSnapshot(async (snapshot) => {
-          setHabitsData(
-            snapshot.docs.map((doc) => ({
-              id: doc.id,
-              data: doc.data(),
-            }))
-          );
-        });
-        habitsData.data.map((habit) => {
-            console.log(habit);
-        });
-        console.log(habitsData);
-    }, []);
+    // Read habits Completed
+    const readHabits = async () => {
+      try {
+        const habits = [];
+        //const habitCompDay = [];
+        //const readHabitQuery = query(collection(db, "habits"));
+        //const querySnapshot = await getDocs(readHabitQuery);
+        var ss = await db.collection("habits").get();
+        ss.forEach((habit) => {
+          // console.log("each habit");
+          // console.log("Split string: ",habit.completed.split(""));
+          // habit.completed.split("").forEach((habComp) => {
+          //   habitCompDay.push(habComp);
+          // })
+          // setHabitCompleteDays([...habitCompDay]);
+          habits.push(habit.data().completed);
+          //console.log(habitCompDay);
+        })
+        setHabitsCompleted([...habits]);
+        //console.log("habits completed",habitsCompleted);
+        //console.log("Clicked Read Is Complete!");
+        //console.log(habits); 
+        // snapshotHabits = onSnapshot(readHabitQuery, (habits) => {
+        //   const habitsA = [];
+        //   habits.forEach((habit) => {
+        //     habitsA.push(habit.data().habit_title);
+        //   });
+        //   console.log("Current habits: ", habitsA.join(", "));
+        // })
+      } catch (e) {
+        alert("error");
+      }
+    }
+
+    const habitsParsing = () => {
+      habitsCompleted.forEach((habit) => {
+        //const split = habit.split("");
+        habitCompleteDays.push(habit.split("").map(char => (char === '1')));
+      })
+
+      console.log(habitCompleteDays);
+    }
+
+    // Read days
+    const readDays = async () => {
+      try {
+        const days = [];
+        var ss = await db.collection("days").get();
+
+        ss.forEach((day) => {
+          days.push(day.data());
+        })
+        setDaysData([...days]);
+        // console.log("Clicked Days!");
+        // console.log(days);
+        
+      } catch (e) {
+        alert("error");
+      }
+    }
+
+    useEffect(() => {
+      readHabits();
+      readDays();
+      habitsParsing();
+      // console.log("Count at beginning: ", count);
+
+      // daysData.forEach((day) => {
+
+      //   console.log("First habit checklist", habitsCompleted[count]);
+      //   console.log("Count: ", count);
+      //   setCount(count+1);
+      // })
+    }, [])
     
     return (
         <>
-            <DateRow date={16} checks={[true, true, false, true, false, false, true]} highlight="Highlight" dailyLog="Description of my day"/>
+            {/* {daysData.map((day) => {
+              console.log("habits completed: ", habitCompleteDays); 
+              
+              <DateRow key={day.date} date={day.date} checks={habitCompleteDays[0]} highlight={day.highlight} dailyLog={day.daily_log}/>     
+            })} */}
+            <DateRow date={16} checks={[true, true, false, true, false, false, true]} highlight="Highlight" dailyLog="Description of my day"/>            
             <DateRow date={15} checks={[true, true, false, true, false, false, true]} highlight="Highlight" dailyLog="Description of my day"/>
             <DateRow date={14} checks={[true, true, false, true, false, false, true]} highlight="Highlight" dailyLog="Description of my day"/>
             <DateRow date={13} checks={[true, true, false, true, false, false, true]} highlight="Highlight" dailyLog="Description of my day"/>
