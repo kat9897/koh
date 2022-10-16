@@ -7,7 +7,7 @@ import DateDisplayShell  from './DateDisplayShell'
 export const Webpage = () => {
     const currDate = new Date().getDate();
     return (
-        <div>
+        <div className='appContainer'>
             <HabitDisplayShell/>
             <DateDisplayShell/>
             {/*<Header></Header>*/}
