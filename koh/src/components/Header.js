@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import './styles.css'
+import '../styles/styles.css'
 
 // firebase
 import db from '../firebase';
@@ -19,7 +19,7 @@ export const Header = () => {
     const [habitTitle, setHabitTitle] = useState("");
     const [habitUserID, setHabitUserID] = useState("");
     const [habitBody, setHabitBody] = useState("");
-    const [colorCode, setColorCode] = useState("");
+    const [colorCode, setColorCode] = useState("#123456");
     const [dayOfWeek, setDayOfWeek] = useState("");
     const [startTime, setStartTime] = useState("");
     const [endTime, setEndTime] = useState("");
@@ -86,7 +86,7 @@ export const Header = () => {
         day_of_week: dayOfWeek,
         start_time: startTime,
         end_time: endTime,
-        is_complete: complete
+        completed: complete
       });
     
       setHabitTitle("");

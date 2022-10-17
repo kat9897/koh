@@ -13,9 +13,6 @@ const DateDisplayShell = ({ date }) => {
     const readHabits = async () => {
       try {
         const habits = [];
-        //const habitCompDay = [];
-        //const readHabitQuery = query(collection(db, "habits"));
-        //const querySnapshot = await getDocs(readHabitQuery);
         var ss = await db.collection("habits").get();
         ss.forEach((habit) => {
           // console.log("each habit");
@@ -43,13 +40,21 @@ const DateDisplayShell = ({ date }) => {
       }
     }
 
-    const habitsParsing = () => {
+    const parseHabits = () => {
+      const hab = [];
       habitsCompleted.forEach((habit) => {
+        hab.push(habit.split("").map(char => (char === '1')));
         //const split = habit.split("");
-        habitCompleteDays.push(habit.split("").map(char => (char === '1')));
+        // console.log("habitscompleted: ", habitsCompleted["0"]);
+        // console.log("habitscompleted type: ", typeof habit);
+        // console.log("habit: ", habit);
+        // console.log("habit type: ", typeof habit);
+        // console.log("habit split: ", habit.split(""));
+        // console.log("is it equal:", habit === 0);
+        // console.log("hab: ",hab);
       })
-
-      console.log(habitCompleteDays);
+      setHabitCompleteDays(hab);
+      // console.log(habitCompleteDays);
     }
 
     // Read days
@@ -73,7 +78,7 @@ const DateDisplayShell = ({ date }) => {
     useEffect(() => {
       readHabits();
       readDays();
-      habitsParsing();
+      parseHabits(); 
       // console.log("Count at beginning: ", count);
 
       // daysData.forEach((day) => {
@@ -86,8 +91,9 @@ const DateDisplayShell = ({ date }) => {
     
     return (
         <>
+            <button onClick={parseHabits}>Click</button>
             {daysData.map((day) => (
-              <DateRow date={day.date} checks={[true, true, false, true, false, false, true]} highlight={day.highlight} dailyLog={day.daily_log}/>
+              <DateRow key={day.date} date={day.date} checks={[true, true, false, true, false, false, true]} highlight={day.highlight} dailyLog={day.daily_log}/>
             ))}
             {/* <DateRow date={16} checks={[true, true, false, true, false, false, true]} highlight="Highlight" dailyLog="Description of my day"/>            
             <DateRow date={15} checks={[true, true, false, true, false, false, true]} highlight="Highlight" dailyLog="Description of my day"/>

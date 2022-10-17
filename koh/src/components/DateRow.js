@@ -25,7 +25,7 @@ const DateRow = ({ date, checks, highlight, dailyLog }) => {
     const updateHabit = (e, dataIdToBeUpdated, habitIndex) => {
         e.preventDefault();
         db.collection("habits").doc(dataIdToBeUpdated).update({
-            completed: checkmarks[habitIndex]
+            completed: checks[habitIndex]
         });
     };
 
@@ -38,7 +38,7 @@ const DateRow = ({ date, checks, highlight, dailyLog }) => {
         checks[habitIndex] = true ? false : true;
         console.log(checkmarks[habitIndex]); 
 
-        // checkmarks[habitIndex] = ' ' ? '✓' : ' ';
+        checkmarks[habitIndex] = ' ' ? '✓' : ' ';
     }
 
     useEffect(() => {
